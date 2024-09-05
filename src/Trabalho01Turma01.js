@@ -1,13 +1,19 @@
 class GerenciadorDeTarefas {
-    constructor() {
+    constructor(descricao, id) {
         this.tarefas = [];
+        this.descricao = descricao;
+        this.id = id;
+        this.concluida = false;
+        this.tags = "";
+        this.data = "";
+        this.prioridade = 0;
     }
 
     adicionarTarefa(tarefa) {
         if (tarefa.descricao.length <= 3) {
             throw new Error('Erro ao cadastrar tarefa');
         }
-        this.tarefas.push(tarefa);
+        this.tarefas.push(tarefa);        
     }
 
     removerTarefa(id) {
@@ -26,10 +32,11 @@ class GerenciadorDeTarefas {
     }
 
     listarTarefas() {
+        console.log(this.tarefas)
         return this.tarefas;
     }
 
-    contarTarefas() {
+    contarTarefas() {        
         return this.tarefas.length;
     }
 
@@ -41,6 +48,7 @@ class GerenciadorDeTarefas {
     }
 
     listarTarefasConcluidas() {
+        console.log(this.tarefas.filter(tarefa => tarefa.concluida))
         return this.tarefas.filter(tarefa => tarefa.concluida);
     }
 
@@ -53,6 +61,7 @@ class GerenciadorDeTarefas {
     }
 
     buscarTarefaPorDescricao(descricao) {
+        console.log(this.tarefas.filter(tarefa => tarefa.descricao.includes(descricao)))
         return this.tarefas.filter(tarefa => tarefa.descricao.includes(descricao));
     }
 
@@ -72,10 +81,12 @@ class GerenciadorDeTarefas {
     }
 
     listarTarefasPorTag(tag) {
+        console.log(this.tarefas.filter(tarefa => tarefa.tags && tarefa.tags.includes(tag)))
         return this.tarefas.filter(tarefa => tarefa.tags && tarefa.tags.includes(tag));
     }
 
     buscarTarefasPorData(data) {
+        console.log(this.tarefas.filter(tarefa => tarefa.data === data));
         return this.tarefas.filter(tarefa => tarefa.data === data);
     }
 
@@ -108,10 +119,12 @@ class GerenciadorDeTarefas {
     }
 
     ordenarTarefasPorData() {
+        console.log(this.tarefas.sort((a, b) => new Date(a.data) - new Date(b.data)))
         this.tarefas.sort((a, b) => new Date(a.data) - new Date(b.data));
     }
 
     ordenarTarefasPorPrioridade() {
+        console.log(this.tarefas.sort((a, b) => a.prioridade - b.prioridade))
         this.tarefas.sort((a, b) => a.prioridade - b.prioridade);
     }
 }
